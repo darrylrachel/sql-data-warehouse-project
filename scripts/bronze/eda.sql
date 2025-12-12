@@ -40,5 +40,12 @@ SELECT DISTINCT cst_marital_status,
        CASE WHEN UPPER(cst_marital_status) = 'S' THEN 'Single'
             WHEN UPPER(cst_marital_status) = 'M' THEN 'Married'
             ELSE 'n/a'
-        END cst_gender
+        END cst_marital_status
 FROM bronze.crm_cust_info;
+
+-- Silver Layer
+SELECT cst_id,
+       COUNT(*)
+FROM silver.crm_cust_info
+GROUP BY cst_id
+HAVING COUNT(*) > 1 OR cst_id IS NULL;
